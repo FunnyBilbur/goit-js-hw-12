@@ -1,0 +1,39 @@
+.nav{
+  display: flex;
+  flex-direction: column;
+  
+  
+}
+.nav *{
+margin: 0 auto;
+}
+
+.form{
+  margin-bottom: 32px;
+  margin-top: 32px;
+}
+
+.submit__button{
+    color: white;
+    background-color: #4E75FF;
+    border-radius: 8px;
+    border-color: transparent;
+    width: 75px;
+    height: 40px;
+}
+
+.submit__button:hover{
+    color: white;
+    background-color: #6C8CFF;
+}
+
+.input__search{
+    height: 36px;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    
+}
+
+.input__search:hover{
+    border-color: black;
+}
