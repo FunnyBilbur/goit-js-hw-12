@@ -1,0 +1,25 @@
+.isHidden{
+    visibility: hidden;
+}
+
+.btn-load-more{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: white;
+    background-color: #4E75FF;
+    border-radius: 8px;
+    border-color: transparent;
+    width: 125px;
+    height: 40px;
+    margin: 25px auto;
+
+    &:hover{
+    color: white;
+    background-color: #6C8CFF;
+    }
+}

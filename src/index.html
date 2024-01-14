@@ -7,16 +7,29 @@
     <title>goit-js-hw-12</title>
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   </head>
   <body>
-      <div class="nav">
+    <!-- Input Search Form -->
+    <div class="nav">
         <form class="form">
         <input class="input__search" type="text" name="seacrh" placeholder="Search images..." required />
         <button class="submit__button" type="submit">Search</button>
       </form>
-      <span class="load"></span>
-      </div>
-      <ul class="gallery"></ul>
+    </div>
+
+    <!-- Gallery list -->
+    <ul class="gallery"></ul>
+    <span class="load"></span>
+
+    <!-- Load More Button -->
+    <button type="button" data-action="load-more" class="btn-load-more isHidden">
+      <!-- Loader after submit request -->
+      <span class="label">Load More</span>
+    </button>
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>

@@ -6,22 +6,26 @@ const form = document.querySelector('.form');
 const inputSearch = document.querySelector('.input__search');
 const gallery = document.querySelector(".gallery");
 const load = document.querySelector(".load");
+const loadMoreBtn = document.querySelector('button[data-action="load-more"]');
+let pageNumber = 1;
+let perPageHits = 40;
+var lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: '250' });
 
-form.addEventListener('submit', async (arg) => {
-    arg.preventDefault();
-    gallery.innerHTML = "";
+const createRequest = async () => {
+    loadMoreBtn.classList.add('isHidden');
     load.classList.add('loader');
-    var lightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: '250' });
     let searchParams = new URLSearchParams({
         key: "41527522-465889db431a6a06c19f4d10b",
         q: inputSearch.value.trim(),
         image_type: "photo",
         orientation: "horizontal",
         safesearch: true,
+        page: pageNumber,
+        per_page: perPageHits,
     });
     await axios.get(`https://pixabay.com/api/?${searchParams}`)
         .then((images) => {
-            let { total, hits } = images.data;
+            let { total, hits, totalHits } = images.data;
             if (total === 0) {
                 iziToast.show({
                     titleColor: 'white',
@@ -67,6 +71,18 @@ form.addEventListener('submit', async (arg) => {
                 .join("");
             gallery.insertAdjacentHTML("beforeend", markup);
             lightbox.refresh();
+            loadMoreBtn.classList.remove('isHidden');
+            if (perPageHits * pageNumber >= totalHits) {
+                iziToast.show({
+                    titleColor: 'white',
+                    position: 'topRight',
+                    message: "We're sorry, but you've reached the end of search results.",
+                    messageColor: 'white',
+                    backgroundColor: '#EF4040',
+                    progressBarColor: '#B51B1B'
+                });
+                loadMoreBtn.classList.add('isHidden');
+            }
         })
         .catch((error) => iziToast.show({
             titleColor: 'white',
@@ -76,4 +92,22 @@ form.addEventListener('submit', async (arg) => {
             backgroundColor: '#EF4040',
             progressBarColor: '#B51B1B'
         }));
+
+}
+
+form.addEventListener('submit', async (arg) => {
+    arg.preventDefault();
+    gallery.innerHTML = "";
+    pageNumber = 1;
+    await createRequest();
+});
+
+loadMoreBtn.addEventListener('click', async () => {
+    pageNumber += 1;
+    await createRequest();
+    let verticalScroll = gallery.firstElementChild.getBoundingClientRect().height * 2;
+    window.scrollBy({
+        top: verticalScroll,
+        behavior: "smooth",
+    });
 });
